@@ -13,6 +13,8 @@ Production-ready practices demonstrated:
 - Structured logging (ready for enhancement)
 - Clear code organization
 """
+import pymysql
+pymysql.install_as_MySQLdb()
 
 import os
 from dotenv import load_dotenv
