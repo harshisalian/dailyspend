@@ -46,6 +46,7 @@ def init_db_pool(app=None):
             'user': app.config['MYSQL_USER'],
             'password': app.config['MYSQL_PASSWORD'],
             'database': app.config['MYSQL_DB'],
+            'port': int(app.config.get('MYSQL_PORT', 3306)),
             'pool_name': 'dailyspend_pool',
             'pool_size': 5,  # Keep 5 connections ready
             'pool_reset_session': True
@@ -57,6 +58,7 @@ def init_db_pool(app=None):
             'user': current_app.config['MYSQL_USER'],
             'password': current_app.config['MYSQL_PASSWORD'],
             'database': current_app.config['MYSQL_DB'],
+            'port': int(current_app.config.get('MYSQL_PORT', 3306)),
             'pool_name': 'dailyspend_pool',
             'pool_size': 5,
             'pool_reset_session': True
