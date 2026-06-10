@@ -39,6 +39,7 @@ class Config:
     MYSQL_USER = os.getenv('MYSQL_USER', 'root')
     MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD', '')
     MYSQL_DB = os.getenv('MYSQL_DB', 'dailyspend')
+    MYSQL_PORT = int(os.getenv('MYSQL_PORT', 3306)) 
     
     # Application Settings
     ITEMS_PER_PAGE = 10  # Pagination setting for expense listings
@@ -68,12 +69,13 @@ class ProductionConfig(Config):
     MYSQL_USER = os.getenv('MYSQL_USER')
     MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD')
     MYSQL_DB = os.getenv('MYSQL_DB')
+    MYSQL_PORT = int(os.getenv('MYSQL_PORT', 3306)) 
     
     # Ensure all required env vars are set
-    if not all([MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB]):
+    if not all([MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB, MYSQL_PORT]):
         raise ValueError(
             "Missing required environment variables for production: "
-            "MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB"
+            "MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB, MYSQL_PORT"
         )
 
 
