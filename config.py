@@ -24,6 +24,9 @@ class Config:
     DEBUG = False
     TESTING = False
     
+    # Secret key for session signing (must be set in all environments)
+    SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
+    
     # Session Configuration
     SESSION_COOKIE_SECURE = False  # Will be True in production
     SESSION_COOKIE_HTTPONLY = True  # Prevents JavaScript from accessing cookies

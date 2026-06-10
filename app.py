@@ -55,14 +55,30 @@ def create_app(config_name=None):
     config = get_config(config_name)
     app.config.from_object(config)
     
-    # Register database initialization (placeholder for later steps)
-    # In Step 2, we'll add database connection logic here
+    # Initialize database connection pool
+    # Note: Pool is initialized on first use, so if the database doesn't exist,
+    # the error will occur when a route tries to access the database (not at startup)
+    from database.db import init_db_pool
+    
+    # Optional: Try to initialize now for early error detection
+    # Remove this try-except if you want to fail fast at startup
+    try:
+        init_db_pool(app)
+    except Exception as e:
+        print(f"⚠️  Warning: Could not initialize database pool: {e}")
+        print("    Make sure MySQL is running and the database 'dailyspend' exists.")
+        print("    Run: mysql -u root -p < database/schema.sql")
     
     # Register error handlers
     register_error_handlers(app)
     
-    # Register blueprints (routes will go here in Step 3)
-    # In Step 3, we'll register main blueprint with routes
+    # Register blueprints (modular route groups)
+    from routes.auth import auth
+    from routes.main import main
+    from routes.expenses import expenses_bp
+    app.register_blueprint(auth)
+    app.register_blueprint(main)
+    app.register_blueprint(expenses_bp)
     
     return app
 

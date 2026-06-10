@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Daily Spend - Expense Tracker{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <!-- Logo/Brand -->
+      <a href="{{ url_for('main.index') }}" class="navbar-brand">
+        <span class="navbar-logo">💰</span>
+        Daily Spend
+      </a>
+
+      <!-- Navigation Links -->
+      <div class="navbar-menu">
+        {% if session.get('user_id') %}
+        <!-- User is logged in -->
+        <span class="navbar-user">
+          Welcome, <strong>{{ session.get('username') }}</strong>
+        </span>
+        <a href="{{ url_for('main.dashboard') }}" class="nav-link">Dashboard</a>
+        <a href="{{ url_for('expenses.add_expense') }}" class="nav-link">Add Expense</a>
+        <a href="{{ url_for('expenses.view_expenses') }}" class="nav-link">View Expenses</a>
+        <a href="{{ url_for('auth.logout') }}" class="nav-link nav-link-logout">Logout</a>
+        {% else %}
+        <!-- User is not logged in -->
+        <a href="{{ url_for('auth.login') }}" class="nav-link">Login</a>
+        <a href="{{ url_for('auth.register') }}" class="nav-link nav-link-primary">Sign Up</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <!-- Flash Messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  <div class="alert alert-{{ category }}">
+    {{ message }}
+    <button class="alert-close" onclick="this.parentElement.style.display='none';">×</button>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  <!-- Main Content -->
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2026 Daily Spend. A portfolio project by <a href="https://github.com" target="_blank">Your Name</a></p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+
+</html>

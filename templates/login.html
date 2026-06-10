@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Daily Spend{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1>Welcome Back</h1>
+      <p>Sign in to your Daily Spend account</p>
+    </div>
+
+    <form method="POST" action="{{ url_for('auth.login') }}" class="auth-form">
+      <!-- Username Field -->
+      <div class="form-group">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" id="username" name="username" class="form-input" placeholder="Enter your username" required
+          autofocus />
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" name="password" class="form-input" placeholder="Enter your password"
+          required />
+      </div>
+
+      <!-- Login Button -->
+      <button type="submit" class="btn btn-primary btn-full">
+        Sign In
+      </button>
+    </form>
+
+    <!-- Sign Up Link -->
+    <div class="auth-footer">
+      <p>Don't have an account?
+        <a href="{{ url_for('auth.register') }}" class="auth-link">Sign up here</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

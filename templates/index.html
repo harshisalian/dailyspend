@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Daily Spend{% endblock %}
+
+{% block content %}
+{% if session.get('user_id') %}
+<!-- Logged in - show dashboard -->
+<div class="dashboard">
+  <div class="dashboard-header">
+    <h1>Welcome to Daily Spend</h1>
+    <p>Your personal expense tracker</p>
+  </div>
+
+  <div class="quick-actions">
+    <a href="{{ url_for('expenses.add_expense') }}" class="btn btn-primary btn-large">
+      ➕ Add Expense
+    </a>
+    <a href="{{ url_for('expenses.view_expenses') }}" class="btn btn-secondary btn-large">
+      📋 View Expenses
+    </a>
+  </div>
+</div>
+{% else %}
+<!-- Not logged in - show landing page -->
+<div class="landing">
+  <div class="landing-header">
+    <h1>Daily Spend</h1>
+    <p class="tagline">Track Your Expenses, Control Your Spending</p>
+  </div>
+
+  <div class="landing-features">
+    <div class="feature">
+      <div class="feature-icon">💳</div>
+      <h3>Easy to Use</h3>
+      <p>Quickly log your daily expenses with a simple interface</p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">📊</div>
+      <h3>Track Spending</h3>
+      <p>Categorize expenses and see where your money goes</p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">🔐</div>
+      <h3>Secure & Private</h3>
+      <p>Your financial data is encrypted and private</p>
+    </div>
+  </div>
+
+  <div class="landing-cta">
+    <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-large">
+      Get Started Free
+    </a>
+    <p>Already have an account? <a href="{{ url_for('auth.login') }}">Sign in</a></p>
+  </div>
+</div>
+{% endif %}
+{% endblock %}
